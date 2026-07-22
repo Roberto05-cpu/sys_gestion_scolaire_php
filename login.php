@@ -1,5 +1,46 @@
 <?php
 
+require "config/db.php";
+
+session_start();
+
+$error = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $role = $_POST["role"];
+
+    $sql = "SELECT * FROM users
+            WHERE email = :email";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        "email" => $email
+    ]);
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && password_verify($password, $user["password"])) {
+
+        $_SESSION["user_id"] = $user["id"];
+        $_SESSION["user_role"] = $user["role"];
+
+        // echo "<script>alert('Connexion reussie');</script>";
+        if ($user["role"] === 'admin') {
+            header("Location: admin/dashboard.php");
+        } elseif ($user["role"] === 'eleve') {
+            header("Location: eleve/dashboard.php");
+        } else {
+            header("Location: enseignant/dashboard.php");
+        }
+        exit;
+    } else {
+
+        $error = "Email ou mot de passe incorrect ou mauvais role.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +55,7 @@
 
 <body>
     <section>
-        <div class="div-princ"> 
+        <div class="div-princ">
             <img src="assets/images/img5.jpg" alt="">
             <div class="div-form">
                 <h1>Bienvenue sur EDUGEST</h1>
@@ -45,8 +86,11 @@
                     <button type="submit">
                         Se connecter
                     </button>
+                    <?php if (!empty($error)) : ?>
+                        <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+                    <?php endif; ?>
                 </form>
-                <a href="index.php" class="retour" >Retour a l'accueil</a>
+                <a href="index.php" class="retour">Retour a l'accueil</a>
             </div>
         </div>
     </section>

@@ -13,7 +13,6 @@ try {
     );
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connexion reussie";
 
 } catch (PDOException $e) {
     echo "Erreur de connexion : " . $e->getMessage();
