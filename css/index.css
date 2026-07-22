@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+nav div {
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+}
+nav div img {
+    height: 50px;
+    width: 50px;
+}
+nav div h1{
+    font-size: 20px;
+}
+nav div h1:hover{
+    color: deeppink;
+}
+nav ul{
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    list-style: none;
+}
+nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    color: black;
+}
+nav ul li a:hover {
+    font-weight: bold;
+    text-decoration: underline;
+}
+nav button {
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    background-color: deeppink;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    margin-right: 50px;
+}
+nav button:hover{
+    background-color:rgb(253, 116, 139);
+}
+nav button a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.hero-section {
+    width: 100%;
+    height: 650px;
+    background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),url('../assets/images/img2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.hero-section .wel {
+    position: absolute;
+    top: 300px;
+    left: 50px;
+}
+.hero-section .wel div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+.hero-section .wel div:first-child h1{
+    font-size: 45px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+.hero-section .wel div:first-child p{
+    font-size: 12px;
+    color: #fff;
+}
+.hero-section .wel div:last-child {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.hero-section .wel div:last-child button{
+    background-color: #0d6efd;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.hero-section .wel div:last-child button a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+.hero-section .wel div:last-child button:hover{
+    background-color: #0b5ed7;
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    position: absolute;
+    bottom: 0.25px;
+    left: 200px;
+}
+.stats div {
+    height: 100px;
+    width: 250px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+.stats div:hover {
+    background-color:antiquewhite;
+}
+.stats img {
+    height: 80px;
+    width: 80px;
+}
+
+.h1-serv, .h1-liv {
+    margin-top: 100px;
+    text-align: center;
+    text-decoration: underline;
+}
+.services {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+.services div {
+    height: 300px;
+    width: 350px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+.services div h2{
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+.recent-livres {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.recent-livres div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+footer .left {
+    margin-left: 100px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    height: 100px;
+    padding: 10px;
+}
+footer .left .trait{
+    width: 2px;
+    height: 50px;
+    background-color: white;
+}
+footer .left div:last-child ul {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    list-style: none;
+    color: white;
+}
+footer .left div:last-child ul li{
+    font-size: 12px;
+}
+footer .left div:last-child p{
+    font-size: 12px;
+    margin-top: 5px;
+}
+footer .right {
+    margin-right: 100px;
+}
+footer .right p{
+    font-size: 12px;
+}
+footer img {
+    height: 30px;
+    width: 30px;
+}
