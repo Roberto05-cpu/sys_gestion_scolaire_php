@@ -1,8 +1,8 @@
 <?php
 
-require "config/db.php";
-
 session_start();
+
+require "config/db.php";
 
 $error = "";
 
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($user && password_verify($password, $user["password"])) {
 
         $_SESSION["user_id"] = $user["id"];
-        $_SESSION["user_role"] = $user["role"];
+        $_SESSION["role"] = $user["role"];
 
         // echo "<script>alert('Connexion reussie');</script>";
         if ($user["role"] === 'admin') {

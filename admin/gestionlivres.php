@@ -17,24 +17,19 @@ if ($_SESSION["role"] !== 'admin') {
     } else {
         header("Location: ../login.php");
     }
-    exit;
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
-    <link rel="stylesheet" href="../css/admin/dashboard.css">
+    <title>GESTION LIVRES</title>
+    <link rel="stylesheet" href="../css/admin/livres.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../assets/js/chart.js"></script>
 </head>
-
 <body>
     <section class="sidebar">
         <div>
@@ -53,43 +48,8 @@ if ($_SESSION["role"] !== 'admin') {
             <li><a href=""><i class="fa-solid fa-arrow-up-from-bracket"></i><span>Déconnexion</span></a></li>
         </ul>
     </section>
-    <section class="dashboard">
-        <div class="head">
-            <h1>DASHBOARD</h1>
-            <div>
-                <img src="../assets/images/img1.jpg" alt="">
-                <p>Admin: <span>Eduadminschool05@gmail.com</span></p>
-            </div>
-        </div>
-        <div class="stats">
-            <div>
-                <p>Total Elèves</p>
-                <span>500</span>
-            </div>
-            <div>
-                <p>Total Enseignants</p>
-                <span>10</span>
-            </div>
-            <div>
-                <p>Total Classes</p>
-                <span>40</span>
-            </div>
-            <div>
-                <p>Total Livres</p>
-                <span>50</span>
-            </div>
-        </div>
-        <div class="chart-container">
-            <div class="chart-card">
-                <h2>Repartition par niveau</h2>
-                <canvas id="niveauChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <h2>Repartition Eleves Garcons / Filles</h2>
-                <canvas id="genreChart"></canvas>
-            </div>
-        </div>
+    <section>
+
     </section>
 </body>
-
 </html>
