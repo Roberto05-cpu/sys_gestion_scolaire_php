@@ -2,7 +2,7 @@
 
 session_start();
 
-require "../config/db.php";
+require "../../config/db.php";
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: ../login.php");
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AJOUT CLASSE</title>
-    <link rel="stylesheet" href="../css/admin/ajoutenseigant.css">
+    <link rel="stylesheet" href="../../css/admin/ajoutenseigant.css">
 </head>
 
 <body>

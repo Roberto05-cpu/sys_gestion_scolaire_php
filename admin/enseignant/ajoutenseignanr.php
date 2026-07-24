@@ -2,7 +2,7 @@
 
 session_start();
 
-require "../config/db.php";
+require "../../config/db.php";
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: ../login.php");
@@ -29,10 +29,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $matricule = $_POST['matricule'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $date_naissance = $_POST['date_naissance'];
+    $telephone = $_POST['telephone'];
+    $specialite = $_POST['specialite'];
     $sexe = $_POST['sexe'];
 
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // verfier si l'email existe 
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE email =?");
+    $stmt->execute([$email]);
+    if ($stmt->fetch()) {
+        $error = "Cet Email existe deja";
+    } else {
+        $pdo->beginTransaction();
+
+        try {
+            // insert dans users
+            $sql1 = "INSERT INTO users (email, password, role) VALUES (?, ?, 'enseignant')";
+            $stmt1 = $pdo->prepare($sql1);
+            $stmt1->execute([$email, $password_hash]);
+            $user_id = $pdo->lastInsertId();
+
+            // inser dans enseignant
+            $sql2 = "INSERT INTO enseignants (user_id, matricule, nom, prenom, sexe, specialite, telephone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $stmt2 = $pdo->prepare($sql2);
+            $stmt2->execute([$user_id, $matricule, $nom, $prenom, $sexe, $specialite, $telephone]);
+
+            $pdo->commit();
+            $success = "Enseignant ajouté avec succès !";
+            header("Location: gestionprof.php");
+            exit ;
+        } catch(Exception $e) {
+            $pdo->rollBack();
+            $error = "Erreur: " . $e->getMessage();
+        }
+    }
 }
 
 ?>
@@ -43,13 +74,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AJOUT ELEVE</title>
-    <link rel="stylesheet" href="../css/admin/ajoutenseigant.css">
+    <title>AJOUT ENSEIGNANT</title>
+    <link rel="stylesheet" href="../../css/admin/ajoutenseigant.css">
 </head>
 
 <body>
     <section>
-        <h1>Ajout Eleve</h1>
+        <h1>Ajout Enseignant</h1>
 
         <form method="POST">
 
@@ -104,12 +135,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
 
             <div>
-                <label for="date_naissance">Date Naissance</label>
+                <label for="telephone">Telephone</label>
 
                 <input
-                    type="date"
-                    id="date_naissance"
-                    name="date_naissance"
+                    type="tel"
+                    id="telephone"
+                    name="telephone"
+                    required>
+            </div>
+
+            <div>
+                <label for="specialite">Spécialité</label>
+
+                <input
+                    type="text"
+                    id="specialite"
+                    name="specialite"
                     required>
             </div>
 
@@ -138,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?= htmlspecialchars($success) ?>
             </p>
         <?php endif; ?>
-        <a href="gestioneleve.php">Retour</a>
+        <a href="gestionprof.php">Retour</a>
     </section>
 </body>
 

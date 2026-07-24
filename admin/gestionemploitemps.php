@@ -38,14 +38,14 @@ if ($_SESSION["role"] !== 'admin') {
         </div>
         <ul>
             <li><a href="dashboard.php"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></a></li>
-            <li><a href="gestioneleve.php"><i class="fa-solid fa-user-graduate"></i><span>Élèves</span></a></li>
-            <li><a href="gestionprof.php"><i class="fa-solid fa-chalkboard-user"></i><span>Enseignants</span></a></li>
-            <li><a href="gestionclasse.php"><i class="fa-solid fa-school"></i><span>Classes</span></a></li>
+            <li><a href="eleve/gestioneleve.php"><i class="fa-solid fa-user-graduate"></i><span>Élèves</span></a></li>
+            <li><a href="enseignant/gestionprof.php"><i class="fa-solid fa-chalkboard-user"></i><span>Enseignants</span></a></li>
+            <li><a href="classe/gestionclasse.php"><i class="fa-solid fa-school"></i><span>Classes</span></a></li>
             <li><a href="gestionmatiere.php"><i class="fa-brands fa-mattermost"></i><span>Matières</span></a></li>
-            <li><a href="gestionlivres.php"><i class="fa-solid fa-book"></i><span>Bibliothèque</span></a></li>
+            <li><a href="livres/gestionlivres.php"><i class="fa-solid fa-book"></i><span>Bibliothèque</span></a></li>
             <li><a href="gestionemploitemps.php"><i class="fa-solid fa-alarm-clock"></i><span>Emplois du temps</span></a></li>
             <li><a href=""><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
-            <li><a href=""><i class="fa-solid fa-arrow-up-from-bracket"></i><span>Déconnexion</span></a></li>
+            <li><a href="../logout.php"><i class="fa-solid fa-arrow-up-from-bracket"></i><span>Déconnexion</span></a></li>
         </ul>
     </section>
     <section>

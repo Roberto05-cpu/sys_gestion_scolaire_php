@@ -2,7 +2,7 @@
 
 session_start();
 
-require "../config/db.php";
+require "../../config/db.php";
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: ../login.php");
@@ -20,6 +20,21 @@ if ($_SESSION["role"] !== 'admin') {
     exit;
 }
 
+$sql = "SELECT c.* , COUNT(e.id) as effectif FROM classes c LEFT JOIN eleves e ON c.id = e.classe_id GROUP BY C.id, c.nom, c.niveau ORDER BY effectif DESC";
+$search = "";
+
+if (isset($_GET['search'])) {
+    $search = "%".$_GET['search']."%";
+    $sql .= " AND e.niveau LIKE ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$search]);
+} else {
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+}
+
+$classes = $stmt->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -28,25 +43,25 @@ if ($_SESSION["role"] !== 'admin') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GESTION CLASSES</title>
-    <link rel="stylesheet" href="../css/admin/prof.css">
+    <link rel="stylesheet" href="../../css/admin/prof.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
 </head>
 <body>
     <section class="sidebar">
         <div>
-            <img src="../assets/images/logo.jpg" alt="">
+            <img src="../../assets/images/logo.jpg" alt="">
             <h1>EDUGEST</h1>
         </div>
         <ul>
-            <li><a href="dashboard.php"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></a></li>
-            <li><a href="gestioneleve.php"><i class="fa-solid fa-user-graduate"></i><span>Élèves</span></a></li>
-            <li><a href="gestionprof.php"><i class="fa-solid fa-chalkboard-user"></i><span>Enseignants</span></a></li>
+            <li><a href="../dashboard.php"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></a></li>
+            <li><a href="../eleve/gestioneleve.php"><i class="fa-solid fa-user-graduate"></i><span>Élèves</span></a></li>
+            <li><a href="../enseignant/gestionprof.php"><i class="fa-solid fa-chalkboard-user"></i><span>Enseignants</span></a></li>
             <li><a href="gestionclasse.php"><i class="fa-solid fa-school"></i><span>Classes</span></a></li>
-            <li><a href="gestionmatiere.php"><i class="fa-brands fa-mattermost"></i><span>Matières</span></a></li>
-            <li><a href="gestionlivres.php"><i class="fa-solid fa-book"></i><span>Bibliothèque</span></a></li>
-            <li><a href="gestionemploitemps.php"><i class="fa-solid fa-alarm-clock"></i><span>Emplois du temps</span></a></li>
+            <li><a href="../gestionmatiere.php"><i class="fa-brands fa-mattermost"></i><span>Matières</span></a></li>
+            <li><a href="../livres/gestionlivres.php"><i class="fa-solid fa-book"></i><span>Bibliothèque</span></a></li>
+            <li><a href="../gestionemploitemps.php"><i class="fa-solid fa-alarm-clock"></i><span>Emplois du temps</span></a></li>
             <li><a href=""><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
-            <li><a href=""><i class="fa-solid fa-arrow-up-from-bracket"></i><span>Déconnexion</span></a></li>
+            <li><a href="../../logout.php"><i class="fa-solid fa-arrow-up-from-bracket"></i><span>Déconnexion</span></a></li>
         </ul>
     </section>
     <section class="prof-contain">
@@ -75,6 +90,17 @@ if ($_SESSION["role"] !== 'admin') {
                 </tr>
             </thead>
             <tbody>
+                <?php if (count($classes) > 0) : ?>
+                    <?php foreach($classes as $c) : ?>
+                        <tr>
+                            <td> <?= htmlspecialchars($c['niveau']) ?> <?= htmlspecialchars($c['nom']) ?></td>
+                            <td><?= htmlspecialchars($c['niveau']) ?></td>
+                            <td><?= htmlspecialchars($c['effectif']) ?></td>
+                        </tr>
+                    <?php endforeach ;?>
+                <?php else : ?>
+                    <tr><td colspan="7">Aucune classe</td></tr>
+                <?php endif ;?>
             </tbody>
         </table>
     </section>
